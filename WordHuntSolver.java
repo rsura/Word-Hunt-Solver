@@ -132,7 +132,7 @@ public class WordHuntSolver{
     /**
      * Traverses a 2D array of GraphNodes to get all the possible words starting
      * with each character GraphNode that it starts with.
-     * @param   characterNodes a 2D array of all the char GraphNodes
+     * @param   characterNodes A 2D array of all the char GraphNodes.
      * @return  A list of all possible words to form.
      */
     private static List<String> getAllWords(GraphNode<Character>[][] characterNodes){
@@ -146,8 +146,44 @@ public class WordHuntSolver{
 		return al;
 	}
 
-    public static List<String> run(int dimension){
-		return null; // temporary
+    /**
+     * Runs the word hunt solver without prompting the user for input.
+     * @param   dimension The side length of the word hunt square.
+     * @param   allChars All the characters represented as a String.
+     * @return  A list of all possible words that can be made.
+     * @throws  IOException
+     */
+    public static List<String> run(int dimension, String allChars) throws IOException {
+		readEnglishWords("src/EnglishWords.txt");
+		foundWords.clear();
+		GraphNode<Character>[][] characterNodes = getInputGraph(dimension,allChars);
+		return getAllWords(characterNodes);
+	}
+    
+    /**
+     * Runs the word hunt solver by prompting the user for input.
+     * @param   dimension The side length of the word hunt square.
+     * @return  A list of all possible words that can be made.
+     * @throws  IOException
+     */
+    public static List<String> run(int dimension) throws IOException{
+		readEnglishWords("src/EnglishWords.txt");
+		foundWords.clear();
+		GraphNode<Character>[][] characterNodes = getInputGraph(dimension);
+		return getAllWords(characterNodes);
+	}
+
+    /**
+     * Main method. Calls the run method that prompts the user for
+     * input via command line or terminal.
+     * @param args [UNUSED]
+     * @throws IOException
+     */
+    public static void main(String[] args) throws IOException {
+		List<String> al = run(4);
+		for (String s: al) {
+			System.out.println(s);
+		}
 	}
 
 }
