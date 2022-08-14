@@ -83,7 +83,7 @@ public class WordHuntSolver{
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter all " + (dimension * dimension) + " word hunt characters with no spaces in between\n-->\t");
 		String input = scanner.nextLine();
-
+        scanner.close();
 		if (input.length() != (dimension * dimension)) {
 			throw new InvalidPropertiesFormatException("Not " + (dimension * dimension) + " continuous characters");
 		}
@@ -104,6 +104,27 @@ public class WordHuntSolver{
 		String currLine;
 		while ((currLine = br.readLine()) != null){
 			englishWords.add(currLine);
+		}
+	}
+
+    /**
+     * Recursively searches all the possible words by using DFS and a set of
+     * all the GraphNodes that have already been visited, so it knows when to stop.
+     * @param   node The node to start searching words from.
+     * @param   nodesVisited A set of all the nodes that have been previously visited.
+     * @param   accumulatedString The built-up string of all GraphNode characters.
+     */
+    private static void searchWords(GraphNode<Character> node, Set<GraphNode<Character>> nodesVisited, String accumulatedString){
+		nodesVisited.add(node);
+		accumulatedString += node.val;
+		if (accumulatedString.length() > maxWordSize) return;
+		if (englishWords.contains(accumulatedString) && accumulatedString.length() >= minWordSize){
+			foundWords.add(accumulatedString);
+		}
+		for (GraphNode<Character> nextNode: node.getConnectedNodes()) {
+			if (!nodesVisited.contains(nextNode)){
+				searchWords(nextNode, new HashSet<>(nodesVisited), accumulatedString);
+			}
 		}
 	}
 
