@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
@@ -126,6 +127,23 @@ public class WordHuntSolver{
 				searchWords(nextNode, new HashSet<>(nodesVisited), accumulatedString);
 			}
 		}
+	}
+
+    /**
+     * Traverses a 2D array of GraphNodes to get all the possible words starting
+     * with each character GraphNode that it starts with.
+     * @param   characterNodes a 2D array of all the char GraphNodes
+     * @return  A list of all possible words to form.
+     */
+    private static List<String> getAllWords(GraphNode<Character>[][] characterNodes){
+		for (GraphNode<Character>[] characterNodeList : characterNodes) {
+			for(GraphNode<Character> node : characterNodeList){
+				searchWords(node, new HashSet<>(maxWordSize + 1), "");
+			}
+		}
+		List<String> al = new ArrayList<>(foundWords);
+		al.sort((o1, o2) -> Integer.compare(o2.length(), o1.length()));
+		return al;
 	}
 
     public static List<String> run(int dimension){
