@@ -58,6 +58,34 @@ public class WordHuntWindow extends Frame{
 			characters.add(textField);
 			add(textField);
 		}
+        
+        solve.setBounds(50,300,190,60);
+		solve.setFocusable(true);
+		solve.setFont(new Font("Default",Font.BOLD,20));
+
+        add(solve);
+
+        ScrollPane scrollPane = new ScrollPane();
+		scrollPane.setWheelScrollingEnabled(true);
+		scrollPane.setVisible(true);
+		scrollPane.setBounds(290,50,160,350);
+		scrollPane.setBackground(Color.LIGHT_GRAY);
+
+		words = new JTextArea("");
+		words.setEditable(false);
+		words.setFont(new Font("Default",Font.PLAIN,15));
+		words.setBorder(BorderFactory.createCompoundBorder(
+				words.getBorder(),
+				BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+
+		words.setAutoscrolls(true);
+		scrollPane.add(words);
+		add(scrollPane);
+		characters.get(0).requestFocus();
+
+        // Next 2 lines for "window refreshing" if some fields don't show up at first
+        setSize(501,501);
+		setSize(500,500);
     }
 
     public static void main(String[] args){
