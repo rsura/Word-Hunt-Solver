@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,9 @@ public class WordHuntWindow extends Frame{
     // Possible words
 	private JTextArea words;
 
+    /**
+     * GUI Constructor to display the window.
+     */
     public WordHuntWindow(){
         setBackground(new Color(0x5BAF5B));
 		setTitle("Word Hunt Solver");
@@ -32,9 +37,30 @@ public class WordHuntWindow extends Frame{
 		setFocusable(true);
 		setLocationRelativeTo(null);
 		setResizable(false);
+
+        addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				dispose();
+			}
+		});
+
+        int[] xCoords = {50,100,150,200};
+		int[] yCoords = {50,100,150,200};
+		for (int i = 0; i < 16; i++) {
+			JTextField textField = new JTextField(1);
+			textField.setBounds(xCoords[i % 4], yCoords[i / 4],40,40);
+			textField.setBackground(new Color(0xD3D385));
+			textField.setFont(new Font("DIALOG", Font.BOLD, 20));
+			textField.setVisible(true);
+			textField.setFocusable(true);
+			textField.setHorizontalAlignment(JTextField.CENTER);
+			textField.addActionListener(e -> e.setSource(textField));
+			characters.add(textField);
+			add(textField);
+		}
     }
 
     public static void main(String[] args){
-        new WordHuntWindow();
+        new WordHuntWindow(); // to run the window
     }
 }
