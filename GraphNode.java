@@ -10,8 +10,8 @@ import java.lang.InstantiationError;
  * type, and a set of all the nodes that it is connected to.
  * It is a directional graph, but all edges have the same weight.
  *
- * @param <T> the type of element maintained in the GraphNode
- * @author Rahul Sura
+ * @param   <T> the type of element maintained in the GraphNode
+ * @author  Rahul Sura
  */
 public class GraphNode<T> {
     // Value in Graph Node

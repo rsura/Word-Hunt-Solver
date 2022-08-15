@@ -8,6 +8,14 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
+/**
+ * This class is the Word Hunt Solver class. It can be run to prompt
+ * a user of all 16 characters or run externally with specified input
+ * already given. If you run the main method of this Java file, it will
+ * prompt the characters via command line / terminal.
+ * 
+ * @author  Rahul Sura
+ */
 public class WordHuntSolver{
     // All of possible English words in a hashset for constant lookup time
     private static final Set<String> englishWords = new HashSet<>(172821);
@@ -176,8 +184,8 @@ public class WordHuntSolver{
     /**
      * Main method. Calls the run method that prompts the user for
      * input via command line or terminal.
-     * @param args [UNUSED]
-     * @throws IOException
+     * @param   args [UNUSED]
+     * @throws  IOException
      */
     public static void main(String[] args) throws IOException {
 		List<String> al = run(4);
