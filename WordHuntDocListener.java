@@ -18,7 +18,6 @@ public class WordHuntDocListener implements DocumentListener{
     @Override
 	public void insertUpdate(DocumentEvent e) {
 		Document document = e.getDocument();
-//		nextComponent.requestFocus();
 		try {
 			String currText = document.getText(0,document.getLength());
 			if (currText.matches("[a-zA-Z]+")){

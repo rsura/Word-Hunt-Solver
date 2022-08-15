@@ -58,6 +58,16 @@ public class WordHuntWindow extends Frame{
 			characters.add(textField);
 			add(textField);
 		}
+
+        characters.get(0).getDocument().addDocumentListener(new WordHuntDocListener(characters.get(0),characters.get(0), characters.get(1)));
+		characters.get(0).addKeyListener(new WordHuntKeyListener(characters.get(0),characters.get(0), characters.get(1)));
+		for (int i = 1; i < 15; ++i) {
+			JTextField textField = characters.get(i);
+			textField.getDocument().addDocumentListener(new WordHuntDocListener(characters.get(i-1),textField, characters.get(i+1)));
+			textField.addKeyListener(new WordHuntKeyListener(characters.get(i-1),textField, characters.get(i+1)));
+		}
+		characters.get(15).getDocument().addDocumentListener(new WordHuntDocListener(characters.get(14),characters.get(15), solve));
+		characters.get(15).addKeyListener(new WordHuntKeyListener(characters.get(14), characters.get(15), solve));
         
         solve.setBounds(50,300,190,60);
 		solve.setFocusable(true);
@@ -76,6 +86,8 @@ public class WordHuntWindow extends Frame{
 					jTextField.setText(jTextField.getText().toUpperCase());
 				}
 				words.setText(String.join("\n",WordHuntSolver.run(4,sb.toString())));
+                setSize(501,501);
+		        setSize(500,500);
 			} catch (Exception ignored) {}
 		});
 		solve.addKeyListener(new KeyListener() {
