@@ -1,8 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 /**
@@ -62,7 +62,36 @@ public class WordHuntWindow extends Frame{
         solve.setBounds(50,300,190,60);
 		solve.setFocusable(true);
 		solve.setFont(new Font("Default",Font.BOLD,20));
+        solve.addActionListener(e -> {
+			try {
+				StringBuilder sb = new StringBuilder();
+				for (JTextField jTextField: characters) {
+					if (jTextField.getText().length() == 1 && jTextField.getText().matches("[a-zA-Z]+")){
+						sb.append(jTextField.getText());
+					} else {
+						throw new InputMismatchException("Please make sure that all squares have only one letter in them");
+					}
+				}
+				for (JTextField jTextField: characters){
+					jTextField.setText(jTextField.getText().toUpperCase());
+				}
+				words.setText(String.join("\n",WordHuntSolver.run(4,sb.toString())));
+			} catch (Exception ignored) {}
+		});
+		solve.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {}
 
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyChar() == KeyEvent.VK_ENTER){
+					solve.doClick();
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {}
+		});
         add(solve);
 
         ScrollPane scrollPane = new ScrollPane();
