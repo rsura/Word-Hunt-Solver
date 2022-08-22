@@ -162,7 +162,7 @@ public class WordHuntSolver{
      * @throws  IOException
      */
     public static List<String> run(int dimension, String allChars) throws IOException {
-		readEnglishWords("src/EnglishWords.txt");
+		readEnglishWords("EnglishWords.txt");
 		foundWords.clear();
 		GraphNode<Character>[][] characterNodes = getInputGraph(dimension,allChars);
 		return getAllWords(characterNodes);
